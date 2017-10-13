@@ -6,7 +6,7 @@
 
 * uses:
   * React (create-react-app)
-  * does organize components into separate files
+  * organizes components into separate files
 
 ## Installation
 
