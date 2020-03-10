@@ -1,49 +1,29 @@
-import React from 'react';
+import React from "react";
 
-import Search from './Search';
-import Articles from './Articles';
+import Search from "./Search";
+import Articles from "./Articles";
 
-import { ARTICLES } from '../constants/articles';
+import { ARTICLES } from "../constants/articles";
 
 const applyFilter = searchTerm => article =>
   article.title.toLowerCase().includes(searchTerm.toLowerCase());
 
-const applySearchTerm = searchTerm => () => ({
-  searchTerm,
-});
+const App = () => {
+  const [searchTerm, setSearchTerm] = React.useState("");
 
-class App extends React.Component {
-  constructor() {
-    super();
+  const handleSearch = event => {
+    setSearchTerm(event.target.value);
+  };
 
-    this.state = {
-      searchTerm: '',
-    };
+  return (
+    <div>
+      <Search value={searchTerm} onSearch={handleSearch}>
+        <p>Search</p>
+      </Search>
 
-    this.onSearch = this.onSearch.bind(this);
-  }
-
-  onSearch(event) {
-    const { value } = event.target;
-
-    this.setState(applySearchTerm(value));
-  }
-
-  render() {
-    const { searchTerm } = this.state;
-
-    return (
-      <div>
-        <Search value={searchTerm} onSearch={this.onSearch}>
-          <p>Search</p>
-        </Search>
-
-        <Articles articles={ARTICLES.filter(applyFilter(searchTerm))} />
-
-        <p>Found in <a href="https://roadtoreact.com/">the Road to learn React</a></p>
-      </div>
-    );
-  }
-}
+      <Articles articles={ARTICLES.filter(applyFilter(searchTerm))} />
+    </div>
+  );
+};
 
 export default App;
